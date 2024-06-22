@@ -1,0 +1,155 @@
+header {
+    position: sticky;
+    inset: 0;
+    background-color: white;
+    z-index: 1;
+
+    nav {
+        padding: 1.0625rem 1.5rem;
+    }
+
+
+    & .logo {
+        img {
+            width: 8.8125rem;
+            height: 1.375rem;
+        }
+    }
+
+    & .overlay {
+        background-image: linear-gradient(to bottom, $darkBlue, transparent);
+        overflow: scroll;
+        position: fixed;
+        display: none;
+        inset: 3.75rem 0 0;
+
+        &[open="true"] {
+            display: block;
+            animation: fade-in 300ms linear forwards;
+        }
+
+        &[open="false"] {
+            display: block;
+            animation: fade-out 300ms linear forwards;
+
+            .menu {
+                animation: slide-up 300ms linear forwards;
+            }
+        }
+
+        & .menu {
+            padding: 1.625rem;
+            margin: 1.5rem;
+            background-color: $white;
+            border-radius: 3px;
+            animation: slide-down 300ms linear forwards;
+
+            & a {
+                display: block;
+                padding-block: .625rem;
+                color: $darkBlue;
+                text-align: center;
+                transition: 500ms ease-in-out;
+
+                &:hover {
+                    color: $white;
+                    background-color: $darkBlue;
+                }
+            }
+        }
+    }
+
+    &.open {
+        & .hamburger {
+            >span {
+                transform-origin: left;
+
+                &:first-child {
+                    top: 0;
+                    transform: rotate(45deg) translate(-1px, -1px) scaleX(1.42);
+                }
+
+                &:nth-child(2) {
+                    transform-origin: right;
+                    width: 0px;
+                    translate: 0px;
+                    rotate: 0deg;
+                }
+
+                &:last-child {
+                    bottom: 0;
+                    transform: rotate(-45deg) translate(-1px, 1px) scaleX(1.42);
+                }
+            }
+
+
+        }
+    }
+
+    & .hamburger {
+        >span {
+            display: block;
+            width: 20px;
+            position: relative;
+            height: 2px;
+            background-color: $darkBlue;
+            transform-origin: right;
+            transition: transform 300ms linear, width 300ms linear;
+
+            &:not(:last-child) {
+                margin-bottom: 7px;
+            }
+
+            &:first-child {
+                top: 18px;
+                transform: rotate(0deg);
+            }
+
+            &:nth-child(2) {
+                transform-origin: left;
+                rotate: 180deg;
+                translate: 20px;
+            }
+
+            &:last-child {
+                bottom: 18px;
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+
+
+    & .links {
+        cursor: pointer;
+
+        a {
+            position: relative;
+            display: inline-block;
+            transition: color 300ms ease-in-out;
+
+            &:hover {
+                color: $darkBlue;
+            }
+
+            &:not(:last-child) {
+                margin-right: 2em;
+            }
+
+            &::before {
+                position: absolute;
+                inset: 45px 0 0 0;
+                content: "";
+                width: 100%;
+                height: 5px;
+                opacity: 0;
+                transition: opacity 300ms ease-in-out;
+            }
+
+            &:hover::before {
+                background-image: linear-gradient(to right, $limeGreen , $brightCyan );
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,143 @@
+html {
+    box-sizing: border-box;
+    font-size: 100%;
+
+    & *::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Public Sans', sans-serif;
+    font-size: $font-large-18;
+    font-weight: $font-weight-normal;
+    background-color: $lightGrayishBlue;
+    color: $grayishBlue;
+    line-height: 1.3;
+
+}
+
+a,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: $grayishBlue;
+    font-size: $font-small-14;
+}
+
+button,
+.button {
+    font-weight: $font-weight-bold;
+    padding: 1rem 2.1875rem;
+    cursor: pointer;
+    border-radius: 50px;
+    color: $white;
+    border: 0;
+    background: linear-gradient(to right, $limeGreen , $brightCyan );
+}
+
+button {
+    font-size: $font-small-14;
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+
+    &:hover {
+        opacity: .75;
+    }
+}
+
+//  utility classes
+.flex {
+    display: flex;
+
+    &-jc-c {
+        justify-content: center;
+    }
+
+    &-jc-sb {
+        justify-content: space-between;
+    }
+
+    &-ai-c {
+        align-items: center;
+    }
+}
+
+// visibility
+// .hide-for-xsmall-mobile{
+//     @include breakpoint(xs){
+//         display: none;
+//     }
+// }
+// .hide-for-mobile{
+//     @include breakpoint(sm){
+// display: none;
+//     }
+// }
+// .hide-for-tablet{
+//     @include breakpoint(md)
+// }
+
+@each $breakpoint in map-keys($breakpoint) {
+    .hide-for-#{$breakpoint}-devices-only {
+        @include breakpoint-only($breakpoint) {
+            display: none;
+        }
+    }
+
+    .hide-from-#{$breakpoint}-devices-and-above {
+        @include breakpoint-up($breakpoint) {
+            display: none;
+        }
+    }
+
+    .hide-from-#{$breakpoint}-devices-and-below {
+        @include breakpoint-down($breakpoint) {
+            display: none;
+        }
+    }
+}
+
+;
+
+// @each $breakpoint in map-keys($breakpoint) {
+//     .hide-from-#{$breakpoint}-devices-and-above {
+//         @include breakpoint-up($breakpoint) {
+//             display: none;
+//         }
+//     }
+// }
+
+// ;
+
+// @each $breakpoint in map-keys($breakpoint) {
+//     .hide-from-#{$breakpoint}-devices-and-below {
+//         @include breakpoint-down($breakpoint) {
+//             display: none;
+//         }
+//     }
+// }
+
+// ;
+// @each $breakpoint in map-keys($breakpoint) {
+//     .hide-for-#{$breakpoint}-devices {
+//         @include breakpoint-between($breakpoint) {
+//             display: none;
+//         }
+//     }
+// };
+
+
+.container {
+    padding-inline: 1.5rem;
+
+}

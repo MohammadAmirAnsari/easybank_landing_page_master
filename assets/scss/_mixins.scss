@@ -1,0 +1,75 @@
+// output
+
+@media (min-width:360px) {
+    // styles
+}
+
+;
+
+/*
+none	none	< 568px
+sm	@media screen and (min-width: 35.5em)	≥568px
+md	@media screen and (min-width: 48em)	≥768px
+lg	@media screen and (min-width: 64em)	≥1024px
+xl	@media screen and (min-width: 80em)	≥1280px
+xxl	@media screen and (min-width: 120em)	≥1920px
+xxxl	@media screen and (min-width: 160em)	≥2560px
+x4k	@media screen and (min-width: 240em)	≥3840px*/
+
+$breakpoint :("xs":"xs", "sm":"sm", "md":"md", "lg":"lg", "xl":"xl", "xxl":"xxl", "xxxl":"xxxl", "x4k":"x4k");
+
+// xs:by default (0em) sm:568 md:768 lg:1024 xl:1280 xxl:1920 xxxl:2560 x4k:3840
+$breakpoint-lower-bound : (map-get($breakpoint, "sm"):"35.5em", map-get($breakpoint, "md"):"48em", map-get($breakpoint, "lg"):"64em", map-get($breakpoint, "xl"):"80em", map-get($breakpoint, "xxl"):"120em", map-get($breakpoint, "xxxl"):"160em", map-get($breakpoint, "x4k"):"240em");
+
+// xs:567 sm:767 md:1023 lg:1279 xl:1919 xxl:2559 xxxl:3839 x4: do not know end upper bound (infinite).
+$breakpoint-upper-bound : (map-get($breakpoint, "xs"):"35.4375em", map-get($breakpoint, "sm"):"47.9375em", map-get($breakpoint, "md"):"63.9375em", map-get($breakpoint, "lg"):"79.9375em", map-get($breakpoint, "xl"):"119.9375em", map-get($breakpoint, "xxl"):"159.9375em", map-get($breakpoint, "xxxl"):"239.9375em");
+
+// breakpoint-only
+@mixin breakpoint-only($size) {
+    $min-width : if(map-has-key($breakpoint-lower-bound, $size), map-get($breakpoint-lower-bound, $size), 0);
+    $max-width : if(map-has-key($breakpoint-upper-bound, $size), map-get($breakpoint-upper-bound, $size), null);
+
+    @if $max-width {
+        @media (min-width:$min-width) and (max-width:$max-width) {
+            @content;
+        }
+    }
+
+    @else {
+        @media (min-width:$min-width) {
+            @content;
+        }
+    }
+}
+
+// breakpoint-up
+@mixin breakpoint-up($min-width) {
+    $min-width : if(map-has-key($breakpoint-lower-bound, $min-width), map-get($breakpoint-lower-bound, $min-width), 0);
+
+    @if $min-width {
+        @media (min-width:$min-width) {
+            @content;
+        }
+    }
+}
+
+// breakpoint-down
+@mixin breakpoint-down($max-width) {
+    $max-width : if(map-has-key($breakpoint-upper-bound, $max-width), map-get($breakpoint-upper-bound, $max-width), null);
+
+    @if $max-width {
+        @media (max-width:$max-width) {
+            @content;
+        }
+    }
+}
+
+// breakpoint-between
+// @mixin breakpoint-between($min-width, $max-width) {
+//     $min-width : if(map-has-key($breakpoint-lower-bound, $min-width), map-get($breakpoint-lower-bound, $min-width), 0);
+//     $max-width : if(map-has-key($breakpoint-upper-bound, $max-width), map-get($breakpoint-upper-bound, $max-width), null);
+
+//     @media (min-width:$min-width) and (max-width:$max-width) {
+//         @content;
+//     }
+// }

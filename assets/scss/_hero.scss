@@ -1,0 +1,30 @@
+.hero {
+
+    .hero_img {
+        position: relative;
+        background: url("/assets/images/bg-intro-mobile.svg") center center / cover no-repeat;
+        min-height: 18.3rem;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            background: url("/assets/images/image-mockups.png") center bottom / 90% no-repeat;
+            height: 100%;
+        }
+    }
+
+    .hero_text {
+        text-align: center;
+
+        h1 {
+            color: $darkBlue;
+            font-weight: $font-weight-normal;
+        }
+
+        p {
+            text-align: justify;
+            font-size: $font-normal-16;
+        }
+    }
+}
